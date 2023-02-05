@@ -6,6 +6,8 @@ from database_functions import *
 
 file = open(os.path.dirname(os.path.abspath(__file__))+'/.credentials.remote.json')
 credentials = json.load(file)
+regexFile = open(os.path.dirname(os.path.abspath(__file__))+'/regex_patterns.json')
+regexPatterns = json.load(regexFile)
 
 reddit = praw.Reddit(
     user_agent="PhraseStatsBot (by u/koloqial)",
@@ -21,11 +23,9 @@ subsList = [
     #"testingground4bots"
 ]
 
-regexPatterns = [
-    
-]
 
-regexPattern = re.compile(r'^(this is the way|this\^?|same|and my axe!?).?', re.MULTILINE)
+
+regexPattern = re.compile(r'^(this is the way|and my axe!?).?', re.MULTILINE)
 submissions = reddit.subreddit("+".join(subsList))
 results = list(get_posts_read_list())
 readPosts = [r[0] for r in results]
